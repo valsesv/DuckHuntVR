@@ -9,13 +9,13 @@ public class SoundSlider : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
 
-    private void Start()
+    private void OnEnable()
     {
         _slider.onValueChanged.AddListener(OnSliderValueChanged);
         _slider.value = SoundManager.Instance.Volume;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _slider.onValueChanged.RemoveListener(OnSliderValueChanged);
     }

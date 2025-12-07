@@ -51,6 +51,11 @@ public class GameController : MonoBehaviour
 
     public void TogglePause()
     {
+        if (_gamePanel.activeSelf == false && _pausePanel.activeSelf == false)
+        {
+            return;
+        }
+
         if (_isPaused)
         {
             ResumeGame();
