@@ -52,6 +52,7 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Reset();
     }
 
     public void Reset()
@@ -76,12 +77,12 @@ public class ScoreManager : MonoBehaviour
     [ContextMenu("Get Damage")]
     public void GetDamage(int damage = 1)
     {
-        _lives -= damage;
+        _lives = Mathf.Max(0, _lives - damage);
+        onLivesChanged?.Invoke(_lives);
         if (_lives <= 0)
         {
             onLevelLost?.Invoke(_lives);
         }
-        onLivesChanged?.Invoke(_lives);
     }
 }
 

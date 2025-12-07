@@ -413,8 +413,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentScoreText: {fileID: 454131423090730742}
-  _livesContainer: {fileID: 5376747492047440068}
   _lifeFadeDuration: 0.5
+  _livesImages:
+  - {fileID: 4422706433809079355}
+  - {fileID: 2649669966192696755}
+  - {fileID: 3019334122862945347}
 --- !u!1 &5090312439743647586
 GameObject:
   m_ObjectHideFlags: 0

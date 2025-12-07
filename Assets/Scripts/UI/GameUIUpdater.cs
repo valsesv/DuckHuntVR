@@ -11,14 +11,12 @@ public class GameUIUpdater : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI _currentScoreText;
-    [SerializeField] private Transform _livesContainer;
     [SerializeField] private float _lifeFadeDuration = 0.5f;
 
-    private Image[] _livesImages;
+    [SerializeField] private Image[] _livesImages;
 
     private void Start()
     {
-        _livesImages = _livesContainer.GetComponentsInChildren<Image>();
         ScoreManager.Instance.onScoreChanged.AddListener(UpdateCurrentScore);
         ScoreManager.Instance.onLivesChanged.AddListener(UpdateLives);
     }
@@ -36,8 +34,12 @@ public class GameUIUpdater : MonoBehaviour
 
     private void UpdateLives(int lives)
     {
-        for (int i = lives - 1; i < _livesImages.Length; i++)
+        for (int i = 0; i < _livesImages.Length; i++)
         {
+            if (i < lives)
+            {
+                continue;
+            }
             _livesImages[i].DOFade(0, _lifeFadeDuration);
         }
     }
