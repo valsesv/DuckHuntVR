@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
 
     [Header("Events")]
     [HideInInspector] public UnityEvent<int> onScoreChanged;
+    [HideInInspector] public UnityEvent<int> onLivesChanged;
     [HideInInspector] public UnityEvent<int> onLevelLost;
 
     private int _currentScore;
@@ -58,12 +59,10 @@ public class ScoreManager : MonoBehaviour
         _currentScore = 0;
         _lives = _lifeCount;
         onScoreChanged?.Invoke(_currentScore);
+        onLivesChanged?.Invoke(_lives);
     }
 
-    /// <summary>
-    /// Adds points to the current score.
-    /// </summary>
-    /// <param name="points">Number of points to add (defaults to pointsPerHit if not specified)</param>
+    [ContextMenu("Add Points")]
     public void AddPoints(int points = 1)
     {
         _currentScore += points;
@@ -74,13 +73,15 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public void GetDamage(int damage)
+    [ContextMenu("Get Damage")]
+    public void GetDamage(int damage = 1)
     {
         _lives -= damage;
         if (_lives <= 0)
         {
             onLevelLost?.Invoke(_lives);
         }
+        onLivesChanged?.Invoke(_lives);
     }
 }
 
