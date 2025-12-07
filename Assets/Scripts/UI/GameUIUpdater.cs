@@ -36,11 +36,9 @@ public class GameUIUpdater : MonoBehaviour
     {
         for (int i = 0; i < _livesImages.Length; i++)
         {
-            if (i < lives)
-            {
-                continue;
-            }
-            _livesImages[i].DOFade(0, _lifeFadeDuration);
+            var isEnabled = i < lives;
+            float targetAlpha = isEnabled ? 1 : 0;
+            _livesImages[i].DOFade(targetAlpha, _lifeFadeDuration);
         }
     }
 }

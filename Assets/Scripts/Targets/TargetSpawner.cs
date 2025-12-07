@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Spawns targets and bombs within a 3D spawn area.
-/// Manages target count based on time intervals.
-/// </summary>
 public class TargetSpawner : MonoBehaviour
 {
     [Header("Spawn Settings")]
@@ -19,16 +15,51 @@ public class TargetSpawner : MonoBehaviour
     [SerializeField] private int advancedThreshold = 5; // Switch to 30s interval after this many targets
 
     [Header("Bomb Spawn Chance")]
-    [SerializeField][Range(0f, 1f)] private float bombSpawnChance = 0.2f; // 20% chance to spawn bomb
+    [SerializeField][Range(0f, 1f)] private float bombSpawnChance = 0.2f;
 
     private int _requiredTargets = 0;
     private float _currentSpawnInterval;
     private float _nextLevelUpTime = 0f;
+    private bool _isGameStarted = false;
+
+    public void StartGame()
+    {
+        ClearAllTargets();
+
+        _isGameStarted = true;
+        _requiredTargets = 0;
+        _currentSpawnInterval = initialSpawnInterval;
+        _nextLevelUpTime = Time.time + _currentSpawnInterval;
+
+        LevelUp();
+    }
+
+    public void StopGame()
+    {
+        _isGameStarted = false;
+        ClearAllTargets();
+    }
+
+    /// <summary>
+    /// Clears all spawned targets and bombs.
+    /// </summary>
+    private void ClearAllTargets()
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+    }
 
     private void Update()
     {
+        if (!_isGameStarted)
+        {
+            return;
+        }
+
         SpawnUntilRequiredCount();
-        
+
         if (Time.time >= _nextLevelUpTime)
         {
             LevelUp();
