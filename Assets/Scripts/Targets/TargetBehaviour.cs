@@ -5,13 +5,13 @@ using UnityEngine;
 /// Target behaviour that awards points when hit by projectiles.
 /// Can be configured to only accept specific weapon types.
 /// </summary>
-public class TargetBehaviour : MonoBehaviour
+public class TargetBehaviour : MonoBehaviour, IShootable
 {
     [Header("Feedback")]
     [SerializeField] private Renderer _renderer;
     [SerializeField] private Color hitColor = Color.green;
     [SerializeField] private float hitColorDuration = 0.2f;
-    
+
     private bool _isActive = true;
 
     public void CheckHit(ProjectileData projectileData)
@@ -36,10 +36,12 @@ public class TargetBehaviour : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
-        _renderer.material.DOColor(hitColor, hitColorDuration).OnComplete(() => {
+
+        _renderer.material.DOColor(hitColor, hitColorDuration).OnComplete(() =>
+        {
             _renderer.material.color = Color.white;
-        }).OnComplete(() => {
+        }).OnComplete(() =>
+        {
             Destroy(gameObject);
         });
     }

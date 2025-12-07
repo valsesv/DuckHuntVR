@@ -62,9 +62,10 @@ public class ProjectileData : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.TryGetComponent<TargetBehaviour>(out var targetBehaviour))
+        var shootable = collision.gameObject.GetComponent<IShootable>();
+        if (shootable != null)
         {
-            targetBehaviour.CheckHit(this);
+            shootable.CheckHit(this);
         }
 
         ContactPoint contact = collision.contacts[0];
