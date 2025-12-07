@@ -19,6 +19,8 @@ public class ScoreManager : MonoBehaviour
     private int _maxScore;
     private int _lives;
 
+    public int maxScore => _maxScore;
+
     /// <summary>
     /// Singleton instance of the ScoreManager.
     /// </summary>
