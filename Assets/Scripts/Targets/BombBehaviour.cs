@@ -5,7 +5,7 @@ using UnityEngine;
 /// Target behaviour that awards points when hit by projectiles.
 /// Can be configured to only accept specific weapon types.
 /// </summary>
-public class TargetBehaviour : MonoBehaviour
+public class BombBehaviour : MonoBehaviour
 {
     [Header("Feedback")]
     [SerializeField] private Renderer _renderer;

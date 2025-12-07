@@ -7,14 +7,16 @@ using UnityEngine.Events;
 /// </summary>
 public class ScoreManager : MonoBehaviour
 {
+    [SerializeField] private int _lifeCount = 3;
     private static ScoreManager _instance;
 
     [Header("Events")]
     [HideInInspector] public UnityEvent<int> onScoreChanged;
-    [HideInInspector] public UnityEvent onLevelComplete;
+    [HideInInspector] public UnityEvent<int> onLevelLost;
 
-    private int _targetsLeft;
-    private int _targetScore;
+    private int _currentScore;
+    private int _maxScore;
+    private int _lives;
 
     /// <summary>
     /// Singleton instance of the ScoreManager.
@@ -38,12 +40,6 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// Whether the level is complete (current score >= target score).
-    /// </summary>
-    public bool IsLevelComplete => _targetScore > 0 && _targetsLeft >= _targetScore;
-
     private void Awake()
     {
         if (_instance == null)
@@ -57,35 +53,34 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        _currentScore = 0;
+        _lives = _lifeCount;
+        onScoreChanged?.Invoke(_currentScore);
+    }
+
     /// <summary>
     /// Adds points to the current score.
     /// </summary>
     /// <param name="points">Number of points to add (defaults to pointsPerHit if not specified)</param>
     public void AddPoints(int points = 1)
     {
-        _targetsLeft -= points;
-        onScoreChanged?.Invoke(_targetsLeft);
-
-        // Check if level is complete
-        if (IsLevelComplete)
+        _currentScore += points;
+        onScoreChanged?.Invoke(_currentScore);
+        if (_currentScore >= _maxScore)
         {
-            onLevelComplete?.Invoke();
+            _maxScore = _currentScore;
         }
     }
 
-    /// <summary>
-    /// Sets the target score (total targets needed to complete the level).
-    /// </summary>
-    /// <param name="targetScore">The target score to set</param>
-    public void SetTargetScore(int targetScore)
+    public void GetDamage(int damage)
     {
-        SetScore(targetScore);
-    }
-
-    private void SetScore(int score)
-    {
-        _targetsLeft = score;
-        onScoreChanged?.Invoke(_targetsLeft);
+        _lives -= damage;
+        if (_lives <= 0)
+        {
+            onLevelLost?.Invoke(_lives);
+        }
     }
 }
 

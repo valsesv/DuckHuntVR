@@ -13,31 +13,8 @@ public class ProjectileData : MonoBehaviour
     [Header("Hit Effect")]
     [SerializeField] private ParticleSystem hitEffectParticle;
 
-    private WeaponType _weaponType;
     private bool _hasHit = false;
     private GameObject _sourceWeapon;
-
-    private void Awake()
-    {
-        Assert.IsNotNull(_rigidbody, "Rigidbody is required");
-        Assert.IsNotNull(hitEffectParticle, "Hit effect particle is required");
-    }
-
-    /// <summary>
-    /// Sets the weapon type for this projectile.
-    /// </summary>
-    public void SetWeaponType(WeaponType weaponType)
-    {
-        _weaponType = weaponType;
-    }
-
-    /// <summary>
-    /// Gets the weapon type that fired this projectile.
-    /// </summary>
-    public WeaponType GetWeaponType()
-    {
-        return _weaponType;
-    }
 
     /// <summary>
     /// Sets the weapon that fired this projectile. Used to ignore collisions with the weapon.
@@ -94,10 +71,6 @@ public class ProjectileData : MonoBehaviour
         HandleHit(contact.point, Quaternion.LookRotation(contact.normal));
     }
 
-    void OnDestroy()
-    {
-        Debug.Log("Projectile destroyed");
-    }
 
     private void HandleHit(Vector3 hitPosition, Quaternion hitRotation)
     {
