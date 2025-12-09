@@ -67,6 +67,7 @@ Transform:
   m_Children:
   - {fileID: 5668113700609139041}
   - {fileID: 6723662696815133630}
+  - {fileID: 7361484577186159602}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &6096004233062108800
@@ -201,7 +202,7 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 7361484577186159602}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -209,7 +210,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 1
+  m_MovementType: 2
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -226,7 +227,7 @@ MonoBehaviour:
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -250,7 +251,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  m_FarAttachMode: 0
+  m_FarAttachMode: 1
 --- !u!114 &2032181406854705979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,19 +264,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a454b74a155b41dfb37663dc3d9bf6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 0
   projectilePrefab: {fileID: 3315047969714590278, guid: 5ba408d352359477d97c1c7be96aad41, type: 3}
   muzzleTransform: {fileID: 5668113700609139041}
   projectileSpeed: 15
   fireCooldown: 0.2
-  magazineSize: 12
-  ammoInReserve: -1
-  reloadDuration: 1.2
-  autoReloadOnEmpty: 1
   muzzleFlash: {fileID: 3341576174384539248}
   hapticPlayer: {fileID: 0}
   hapticAmplitude: 0.35
   hapticDuration: 0.1
+  returnDuration: 0.3
+  returnEase: 6
+--- !u!1 &8358838246135885136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7361484577186159602}
+  m_Layer: 0
+  m_Name: Attach
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7361484577186159602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8358838246135885136}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.11, z: -0.23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2711128551450670344}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3233802397813739108
 PrefabInstance:
   m_ObjectHideFlags: 0
