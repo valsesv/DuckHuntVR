@@ -11,7 +11,7 @@ public class VRMovementDisabler : MonoBehaviour
     /// Disables all locomotion providers (movement and teleportation) for the player.
     /// Also disables XR Device Simulator keyboard translation.
     /// </summary>
-    public void DisableAllMovement()
+    public void Start()
     {
         DisableLocomotionProviders();
         DisableXRDeviceSimulatorMovement();
