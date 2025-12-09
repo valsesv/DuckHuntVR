@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: -883287254266306357}
   - component: {fileID: -8634243712837021564}
   - component: {fileID: -297642917356354592}
+  - component: {fileID: 1236866647950046218}
   m_Layer: 0
   m_Name: Target
   m_TagString: Untagged
@@ -304,6 +305,8 @@ MonoBehaviour:
   _renderer: {fileID: 210856001828633372}
   hitColor: {r: 0, g: 1, b: 0, a: 1}
   hitColorDuration: 0.2
+  targetMotion: {fileID: 1236866647950046218}
+  chanceToMove: 0.3
 --- !u!54 &-8634243712837021564
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -346,6 +349,21 @@ MonoBehaviour:
   destroyTimer: 15
   damagePlayerOnDestroy: 1
   timerSlider: {fileID: 4826131577882447144}
+--- !u!114 &1236866647950046218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6095263369345474290}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a62fe4d7f0834befbd37de0d4c84253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveAmount: {x: 0, y: 0.5, z: 0}
+  duration: 2
+  easeType: 1
 --- !u!1 &6539472475631715141
 GameObject:
   m_ObjectHideFlags: 0

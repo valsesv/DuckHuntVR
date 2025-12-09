@@ -11,8 +11,18 @@ public class TargetBehaviour : MonoBehaviour, IShootable
     [SerializeField] private Renderer _renderer;
     [SerializeField] private Color hitColor = Color.green;
     [SerializeField] private float hitColorDuration = 0.2f;
+    [SerializeField] private TargetMotion targetMotion;
+    [SerializeField] private float chanceToMove = 0.3f;
 
     private bool _isActive = true;
+
+    private void Start()
+    {
+        if (Random.value < chanceToMove)
+        {
+            targetMotion.enabled = true;
+        }
+    }
 
     public void CheckHit(ProjectileData projectileData)
     {
