@@ -267,6 +267,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6783149019143820411, guid: 446b080c8fd1a4db798d32567f789805, type: 3}
+      propertyPath: hapticPlayer
+      value: 
+      objectReference: {fileID: 1192113692}
     - target: {fileID: 8682811460632959355, guid: 446b080c8fd1a4db798d32567f789805, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

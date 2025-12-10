@@ -15,6 +15,7 @@ public class WeaponBehaviour : MonoBehaviour
     [SerializeField] private Transform muzzleTransform;
     [SerializeField] private float projectileSpeed = 25f;
     [SerializeField] private float fireCooldown = 0.2f;
+    [SerializeField] private bool holdToFire = false;
 
     [Header("Feedback")]
     [SerializeField] private ParticleSystem muzzleFlash;
@@ -32,6 +33,7 @@ public class WeaponBehaviour : MonoBehaviour
     private Vector3 _startPosition;
     private Quaternion _startRotation;
     private Tween _returnTween;
+    private bool _isFiring = false;
 
     private void Awake()
     {
@@ -47,6 +49,8 @@ public class WeaponBehaviour : MonoBehaviour
         {
             _grabInteractable.selectEntered.AddListener((args) => OnWeaponGrabbed());
             _grabInteractable.selectExited.AddListener((args) => OnWeaponDetached());
+            _grabInteractable.activated.AddListener((args) => OnActivated());
+            _grabInteractable.deactivated.AddListener((args) => OnDeactivated());
         }
     }
 
@@ -57,6 +61,8 @@ public class WeaponBehaviour : MonoBehaviour
         {
             _grabInteractable.selectEntered.RemoveAllListeners();
             _grabInteractable.selectExited.RemoveAllListeners();
+            _grabInteractable.activated.RemoveAllListeners();
+            _grabInteractable.deactivated.RemoveAllListeners();
         }
 
         // Kill any active tweens
@@ -80,6 +86,9 @@ public class WeaponBehaviour : MonoBehaviour
 
     private void OnWeaponDetached()
     {
+        // Stop firing when weapon is detached
+        _isFiring = false;
+
         // Kill any existing return tween
         _returnTween?.Kill();
 
@@ -94,6 +103,25 @@ public class WeaponBehaviour : MonoBehaviour
         _returnTween = DOTween.Sequence()
             .Append(transform.DOMove(_startPosition, returnDuration).SetEase(returnEase))
             .Join(transform.DORotateQuaternion(_startRotation, returnDuration).SetEase(returnEase));
+    }
+
+    private void OnActivated()
+    {
+        _isFiring = true;
+    }
+
+    private void OnDeactivated()
+    {
+        _isFiring = false;
+    }
+
+    private void Update()
+    {
+        // Continuously fire while button is held
+        if (_isFiring && holdToFire)
+        {
+            Fire();
+        }
     }
 
     /// <summary>
