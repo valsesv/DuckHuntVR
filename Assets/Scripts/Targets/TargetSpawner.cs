@@ -1,10 +1,19 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+
+[System.Serializable]
+public class SpawnableObject
+{
+    public GameObject prefab;
+    [Range(0f, 1f)]
+    public float spawnChance = 0.5f;
+}
 
 public class TargetSpawner : MonoBehaviour
 {
     [Header("Spawn Settings")]
-    [SerializeField] private GameObject targetPrefab;
-    [SerializeField] private GameObject bombPrefab;
+    [SerializeField] private List<SpawnableObject> spawnableObjects = new List<SpawnableObject>();
     [SerializeField] private float spawnRadius = 10f;
     [SerializeField] private float minSpawnHeight = 1f;
     [SerializeField] private float maxSpawnHeight = 5f;
@@ -13,9 +22,6 @@ public class TargetSpawner : MonoBehaviour
     [SerializeField] private float initialSpawnInterval = 10f; // Every 10 seconds initially
     [SerializeField] private float advancedSpawnInterval = 30f; // Every 30 seconds after 5 targets
     [SerializeField] private int advancedThreshold = 5; // Switch to 30s interval after this many targets
-
-    [Header("Bomb Spawn Chance")]
-    [SerializeField][Range(0f, 1f)] private float bombSpawnChance = 0.2f;
 
     private int _requiredTargets = 0;
     private float _currentSpawnInterval;
@@ -93,11 +99,57 @@ public class TargetSpawner : MonoBehaviour
 
     private void SpawnTarget()
     {
-        bool spawnBomb = Random.value < bombSpawnChance;
-        GameObject prefabToSpawn = spawnBomb ? bombPrefab : targetPrefab;
-        Vector3 spawnPosition = GetRandomSpawnPosition();
+        GameObject prefabToSpawn = GetRandomPrefab();
+        if (prefabToSpawn == null)
+        {
+            Debug.LogWarning("No valid prefab to spawn. Check spawnableObjects list.");
+            return;
+        }
 
+        Vector3 spawnPosition = GetRandomSpawnPosition();
         Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity, transform);
+    }
+
+    private GameObject GetRandomPrefab()
+    {
+        if (spawnableObjects == null || spawnableObjects.Count == 0)
+        {
+            return null;
+        }
+
+        // Filter out null prefabs and calculate total weight
+        var validObjects = spawnableObjects.Where(obj => obj != null && obj.prefab != null && obj.spawnChance > 0f).ToList();
+
+        if (validObjects.Count == 0)
+        {
+            return null;
+        }
+
+        // Calculate total weight
+        float totalWeight = validObjects.Sum(obj => obj.spawnChance);
+
+        if (totalWeight <= 0f)
+        {
+            // If all weights are 0, return first valid prefab
+            return validObjects[0].prefab;
+        }
+
+        // Generate random value between 0 and totalWeight
+        float randomValue = Random.Range(0f, totalWeight);
+        float currentWeight = 0f;
+
+        // Select prefab based on weighted random
+        foreach (var spawnable in validObjects)
+        {
+            currentWeight += spawnable.spawnChance;
+            if (randomValue <= currentWeight)
+            {
+                return spawnable.prefab;
+            }
+        }
+
+        // Fallback to last item (shouldn't happen, but safety check)
+        return validObjects[validObjects.Count - 1].prefab;
     }
 
     private Vector3 GetRandomSpawnPosition()

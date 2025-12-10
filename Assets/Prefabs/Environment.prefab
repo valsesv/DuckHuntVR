@@ -44,15 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa07ada758f984057a63b26eaa9f65d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPrefab: {fileID: 6095263369345474290, guid: adf62d741c53744eb97f4c8b1f9ff629, type: 3}
-  bombPrefab: {fileID: 6095263369345474290, guid: 78d046d70bd844889bf4924f265a0f0b, type: 3}
+  spawnableObjects:
+  - prefab: {fileID: 6095263369345474290, guid: adf62d741c53744eb97f4c8b1f9ff629, type: 3}
+    spawnChance: 0.6
+  - prefab: {fileID: 6095263369345474290, guid: 967c027782cfb434c83b79608ee549fa, type: 3}
+    spawnChance: 0.2
+  - prefab: {fileID: 6095263369345474290, guid: 78d046d70bd844889bf4924f265a0f0b, type: 3}
+    spawnChance: 0.2
   spawnRadius: 1.25
   minSpawnHeight: 0
   maxSpawnHeight: 1
   initialSpawnInterval: 20
   advancedSpawnInterval: 45
   advancedThreshold: 5
-  bombSpawnChance: 0.2
 --- !u!1 &992456883330123058
 GameObject:
   m_ObjectHideFlags: 0

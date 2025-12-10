@@ -265,8 +265,9 @@ GameObject:
   - component: {fileID: -883287254266306357}
   - component: {fileID: -8634243712837021564}
   - component: {fileID: -297642917356354592}
+  - component: {fileID: 1236866647950046218}
   m_Layer: 0
-  m_Name: Target
+  m_Name: MoveTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee0bfe0d6432f4955832db16c2baf061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: 3
   _renderer: {fileID: 210856001828633372}
   hitColor: {r: 0, g: 1, b: 0, a: 1}
   hitColorDuration: 0.2
@@ -346,6 +348,21 @@ MonoBehaviour:
   destroyTimer: 15
   damagePlayerOnDestroy: 1
   timerSlider: {fileID: 4826131577882447144}
+--- !u!114 &1236866647950046218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6095263369345474290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a62fe4d7f0834befbd37de0d4c84253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveAmount: {x: 0, y: 0.5, z: 0}
+  duration: 2
+  easeType: 1
 --- !u!1 &6539472475631715141
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +555,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3981050905519195651, guid: ebc55a2ebc1184f918b91923a45dd2a1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ed1109f9b6ab1489d94c96f7c7fc32d5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
